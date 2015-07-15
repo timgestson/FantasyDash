@@ -1,0 +1,20 @@
+{
+  "name": "draftDash",
+  "version": "0.0.0",
+  "authors": [
+    "Tim Gestson"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-material-design": "~0.3.0",
+    "bootstrap": "~3.3.5",
+    "Chart.js": "~1.0.2"
+  }
+}
