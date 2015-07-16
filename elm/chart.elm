@@ -25,7 +25,9 @@ type alias Chart =
     }
 
 type alias Extra =
-    { line: Int }
+    { line: Int 
+    , names: List String
+    }
 
 
 type alias DataSet1 = 
@@ -36,7 +38,6 @@ type alias DataSet1 =
     , pointHighlightFill : String
     , pointHighlightStroke : String
     , data : List (Maybe Float)
-    , names : Maybe (List (Maybe String))
     }
 
 
@@ -98,7 +99,8 @@ viewLarge title name =
                 , ("width", "93%")]
         ]
         [ h3 [style [("text-align", "center")]] [ text title ]
-        , div [class "canvas-wrapper" ]
+        , div [class "canvas-wrapper"
+               , style [("height", "300px")]  ]
             [ canvas 
                 [id name] []
             ]

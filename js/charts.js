@@ -22,7 +22,6 @@ function renderChart(chartList){
                 new Chart(ctx).Radar(chart.chart)
                 break
             case "Overview":
-                $(canvas).width($(canvas).parent().width())
                 new Chart(ctx).Overview(chart.chart)
                 break
             default :

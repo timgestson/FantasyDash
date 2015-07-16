@@ -29,7 +29,6 @@ chartData model =
                   , pointHighlightFill = color 0.6
                   , pointHighlightStroke = color 0.6
                   , data = List.map maybeMapper data
-                  , names = Nothing
                 } ]
             , extras = Nothing
             })

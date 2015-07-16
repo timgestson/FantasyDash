@@ -21,7 +21,6 @@ createData data =
           , pointHighlightFill = otherColor
           , pointHighlightStroke = otherColor
           , data = List.map maybeMapper data
-          , names = Nothing
           }     
 
 chartData model = 

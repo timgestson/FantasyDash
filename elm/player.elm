@@ -43,16 +43,6 @@ getDataPerPosition position players =
         in
            List.map mapper players
 
-getNamesPerPosition : String -> List Player -> List (Maybe String)
-getNamesPerPosition position players =
-        let
-            mapper player = 
-                if player.position  ==  position then
-                   Just player.name
-                else
-                    Nothing
-        in
-           List.map mapper players
 
 draftOrderSort : List Player -> List Player
 draftOrderSort players = 

@@ -4,10 +4,10 @@ const overview =
         name: "Overview",
         initialize: function(data){
             this.line = data.extras.line
-            console.log(data)
-            console.log(this)
-            this.options.tooltipTemplate = 
-                "<%= value %>: <%= names[value] =>"
+            this.options.multiTooltipTemplate = (values)=>{
+                console.log(values, data)
+                return values.value + " " + data.extras.names[values.label - 1]
+            }
             Chart.types.Line.prototype.initialize.apply(this, arguments) 
         },
         draw: function(data){

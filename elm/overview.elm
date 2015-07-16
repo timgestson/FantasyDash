@@ -24,7 +24,6 @@ createData items position =
         fillColor = baseColor 0.1
         otherColor = baseColor 1
         data = getDataPerPosition position items
-        names = getNamesPerPosition position items
     in
          { label = position
           , fillColor = fillColor
@@ -33,11 +32,11 @@ createData items position =
           , pointHighlightFill = otherColor
           , pointHighlightStroke = otherColor
           , data = data
-          , names = (Just (names))
           }     
 
 chartData model = 
     let allitems = draftOrderSort model.players
+        names = List.map .name allitems
         start = if model.draftPosition < 30 then
                     0
                 else
@@ -60,7 +59,9 @@ chartData model =
             , datasets = 
                 List.map (createData items) positions
             , extras = Just {
-                line = model.draftPosition}
+                line = model.draftPosition
+                , names = names
+                }
             })
         }
    
