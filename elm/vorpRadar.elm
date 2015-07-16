@@ -18,9 +18,10 @@ createData data =
           , fillColor = fillColor
           , pointColor = otherColor
           , pointStrokeColor = otherColor
-          , pointHighlightColor = otherColor
-          , pointHighlightStrokeColor = otherColor
-          , data = data
+          , pointHighlightFill = otherColor
+          , pointHighlightStroke = otherColor
+          , data = List.map maybeMapper data
+          , names = Nothing
           }     
 
 chartData model = 
@@ -28,7 +29,8 @@ chartData model =
         rb = bestAvailable "RB" model.players
         wr = bestAvailable "WR" model.players
         te = bestAvailable "TE" model.players
-        list = [qb, rb, wr, te]
+        def = bestAvailable "Def" model.players
+        list = [qb, rb, wr, te, def]
         namesMaybe = List.map (Maybe.map .name) list
         names = List.map (Maybe.withDefault "") namesMaybe
         vorpMaybe = List.map (Maybe.map 
@@ -45,6 +47,7 @@ chartData model =
                 names
             , datasets = 
                 [(createData vorp)]   
+            , extras = Nothing
             })
         }
    

@@ -26,10 +26,12 @@ chartData model =
                   , fillColor = color 0.1
                   , pointColor = color 1
                   , pointStrokeColor = color 1
-                  , pointHighlightColor = color 0.6
-                  , pointHighlightStrokeColor = color 0.6
-                  , data = data
-                } ]    
+                  , pointHighlightFill = color 0.6
+                  , pointHighlightStroke = color 0.6
+                  , data = List.map maybeMapper data
+                  , names = Nothing
+                } ]
+            , extras = Nothing
             })
         }
    

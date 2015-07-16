@@ -32,6 +32,45 @@ sortPlayers players prop =
         "projPoints" -> reverse (sortBy .projPoints players)
         _ -> players
 
+getDataPerPosition : String -> List Player -> List (Maybe Float)
+getDataPerPosition position players = 
+        let
+            mapper player = 
+                if player.position  ==  position then
+                   Just player.projPoints
+                else
+                    Nothing
+        in
+           List.map mapper players
+
+getNamesPerPosition : String -> List Player -> List (Maybe String)
+getNamesPerPosition position players =
+        let
+            mapper player = 
+                if player.position  ==  position then
+                   Just player.name
+                else
+                    Nothing
+        in
+           List.map mapper players
+
+draftOrderSort : List Player -> List Player
+draftOrderSort players = 
+    let draftPart player =
+        case Maybe.withDefault 0 player.draftedAt of
+            0 -> False
+            _ -> 
+                True
+        (drafted, undrafted) = List.partition draftPart players
+        getDrafted player = Maybe.withDefault 0 player.draftedAt 
+        orderedList = List.append (sortBy getDrafted drafted) 
+            (sortBy .adp undrafted)
+    in
+        orderedList
+
+
+
+
 -- Favorite --
 
 changeFavorite : String -> Bool -> List Player -> List Player
@@ -44,11 +83,14 @@ changeFavorite id addOrRemove players =
 
 -- Roster --
 
-changeStatus : String -> String -> List Player -> List Player
-changeStatus newStatus id players = 
+changeStatus : String -> Maybe Int -> String -> List Player -> List Player
+changeStatus newStatus draftedAt id players = 
     let change player = 
         case player.id == id of
-            True -> { player | status <- newStatus }
+            True -> { player 
+                    | status <- newStatus 
+                    , draftedAt <- draftedAt
+                    }
             False -> player
     in List.map change players
 
@@ -90,7 +132,6 @@ filterPos players pos =
         filter isPos players
 
 --VORP calculations--
-
 
 valueOverNextPlayer : String -> List Player -> (String, Float)
 valueOverNextPlayer position players =

@@ -19,9 +19,10 @@ createData data =
           , fillColor = fillColor
           , pointColor = otherColor
           , pointStrokeColor = otherColor
-          , pointHighlightColor = otherColor
-          , pointHighlightStrokeColor = otherColor
-          , data = data
+          , pointHighlightFill = otherColor
+          , pointHighlightStroke = otherColor
+          , data = List.map maybeMapper data
+          , names = Nothing
           }     
 
 chartData model = 
@@ -29,6 +30,7 @@ chartData model =
         (rb, rbpoints) = valueOverNextPlayer "RB" model.players
         (wr, wrpoints) = valueOverNextPlayer "WR" model.players
         (te, tepoints) = valueOverNextPlayer "TE" model.players
+        (def, defpoints) = valueOverNextPlayer "Def" model.players
     in
         { command = "Render"
         , selector = "vonpRadar"
@@ -37,9 +39,11 @@ chartData model =
             , options = 
                   { legendTemplate = Nothing }
             , labels = 
-                [qb,rb,wr,te]
+                [qb,rb,wr,te,def]
             , datasets = 
-                [(createData [qbpoints,rbpoints,wrpoints,tepoints])]   
+                [(createData [qbpoints,rbpoints,
+                    wrpoints,tepoints, defpoints])]   
+            , extras = Nothing
             })
         }
    

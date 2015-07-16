@@ -8,6 +8,8 @@ function renderChart(chartList){
         console.log(chart)
         var canvas = document.getElementById(chart.selector)
         var ctx = canvas.getContext("2d")
+        $(canvas).width($(canvas).parent().width())
+        $(canvas).height($(canvas).parent().height())
         
         switch (chart.chart.chartType){
             case "Line" : 
@@ -21,7 +23,6 @@ function renderChart(chartList){
                 break
             case "Overview":
                 $(canvas).width($(canvas).parent().width())
-                $(canvas).height($(canvas).parent().height()*.66)
                 new Chart(ctx).Overview(chart.chart)
                 break
             default :

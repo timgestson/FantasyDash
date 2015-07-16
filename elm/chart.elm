@@ -10,24 +10,46 @@ type alias ChartCommand =
     , chart : Maybe Chart
     }
 
+
+maybeMapper value = Just value
+
 type alias ChartOptions =
-    { legendTemplate : Maybe String }
+    { legendTemplate : Maybe String } 
 
 type alias Chart =
     { chartType : String
     , options : ChartOptions
     , labels : List String
-    , datasets : List DataSet1
+    , datasets : List (DataSet1)
+    , extras: Maybe Extra
     }
+
+type alias Extra =
+    { line: Int }
+
 
 type alias DataSet1 = 
     { label : String 
     , fillColor : String
     , pointColor : String
     , pointStrokeColor : String
-    , pointHighlightColor : String
-    , pointHighlightStrokeColor : String
-    , data : List Float
+    , pointHighlightFill : String
+    , pointHighlightStroke : String
+    , data : List (Maybe Float)
+    , names : Maybe (List (Maybe String))
+    }
+
+
+
+type alias Overview = 
+    { label : String 
+    , fillColor : String
+    , pointColor : String
+    , pointStrokeColor : String
+    , pointHighlightFill : String
+    , pointHighlightStroke : String
+    , data : List (Maybe Float)
+    , names : List (Maybe String)
     }
 
 type alias DataSet2 = 
@@ -77,7 +99,9 @@ viewLarge title name =
         ]
         [ h3 [style [("text-align", "center")]] [ text title ]
         , div [class "canvas-wrapper" ]
-            [ canvas [id name] []]
+            [ canvas 
+                [id name] []
+            ]
         ]
 
 

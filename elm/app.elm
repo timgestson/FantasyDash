@@ -7,7 +7,6 @@ import Player exposing (..)
 import Signal exposing (..)
 import Sidebar exposing (..)
 import Maybe exposing (..)
-import Signal.Extra exposing (..)
 import Chart exposing (..)
 import StartersRadar exposing (..)
 import VorpLine exposing (..)
@@ -18,12 +17,14 @@ import Overview exposing (..)
 type alias Model = 
     { players: List Player
     , sidebar: Sidebar.Model
+    , draftPosition: Int
     }
 
 emptyModel : Model
 emptyModel = 
     { players = []
     , sidebar = Sidebar.emptyModel
+    , draftPosition = 1
     }
 
 actions : Signal.Mailbox Action
@@ -68,7 +69,6 @@ view address model =
 margin : Attribute
 margin = style [("margin-top", "10px")]
 
-
 main : Signal Html
 main = Signal.map (view actions.address) model
 
@@ -82,8 +82,8 @@ initialModel =  Maybe.withDefault emptyModel getState
 dashboard : Model -> List ChartCommand
 dashboard model =
     [ StartersRadar.chartData model
-    ,  VorpRadar.chartData model
-    ,  VonpRadar.chartData model
+    , VorpRadar.chartData model
+    , VonpRadar.chartData model
     , Overview.chartData model
     ]
 

@@ -8,32 +8,46 @@ import Signal exposing (Signal, Address)
 import Chart exposing (..)
 import Color exposing (..)
 
-createData data =
+getColorByPosition position = 
+    case position of
+        "QB" -> red
+        "RB" -> blue
+        "WR" -> green
+        "TE" -> yellow
+        "K" -> lightGrey
+        "Def" -> grey
+
+createData : List Player -> String -> DataSet1
+createData items position =
     let 
-        baseColor = toRgba blue
+        baseColor = toRgba (getColorByPosition position)
         fillColor = baseColor 0.1
         otherColor = baseColor 1
+        data = getDataPerPosition position items
+        names = getNamesPerPosition position items
     in
-         { label = ""
+         { label = position
           , fillColor = fillColor
           , pointColor = otherColor
-          , pointStrokeColor = otherColor
-          , pointHighlightColor = otherColor
-          , pointHighlightStrokeColor = otherColor
+          , pointStrokeColor = "#fff"
+          , pointHighlightFill = otherColor
+          , pointHighlightStroke = otherColor
           , data = data
+          , names = (Just (names))
           }     
 
 chartData model = 
-    let qb = bestAvailable "QB" model.players
-        rb = bestAvailable "RB" model.players
-        wr = bestAvailable "WR" model.players
-        te = bestAvailable "TE" model.players
-        list = [qb, rb, wr, te]
-        namesMaybe = List.map (Maybe.map .name) list
-        names = List.map (Maybe.withDefault "") namesMaybe
-        vorpMaybe = List.map (Maybe.map 
-            ((flip valueOverReplacement) model.players)) list
-        vorp = List.map (Maybe.withDefault 0) vorpMaybe
+    let allitems = draftOrderSort model.players
+        start = if model.draftPosition < 30 then
+                    0
+                else
+                    model.draftPosition - 30
+        items = List.take 60 (List.drop start allitems)
+        positions = ["QB","RB","WR","TE","K","Def"]
+        labels =  
+            (List.map fst (List.indexedMap (,) items))
+            |> List.map ((+) 1)
+            |> List.map toString
     in
         { command = "Render"
         , selector = "overview"
@@ -42,9 +56,11 @@ chartData model =
             , options = 
                   { legendTemplate = Nothing }
             , labels = 
-                names
+                labels
             , datasets = 
-                [(createData vorp)]   
+                List.map (createData items) positions
+            , extras = Just {
+                line = model.draftPosition}
             })
         }
    

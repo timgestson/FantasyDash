@@ -56,10 +56,14 @@ draft mine id model =
         case mine of
             True -> "Mine"
             False -> "Thiers"
-    in { model | players <- (changeStatus status id model.players) }
+    in { model | players <- (changeStatus status (Just model.draftPosition)
+                                id model.players)
+               , draftPosition <- model.draftPosition + 1 }
 
 undraft id model =
-    { model | players <- (changeStatus "Available" id model.players) }
+    { model | players <- (changeStatus "Available" Nothing 
+                            id model.players) 
+            , draftPosition <- model.draftPosition - 1 }
 
 updateSort sortString model = 
     let side = model.sidebar
@@ -183,7 +187,7 @@ draftLink player address =
              [ li [] 
                 [ draftPlayer True player.id address  "Draft (My Squad)" ]
              , li []
-                [ draftPlayer True player.id address  
+                [ draftPlayer False player.id address  
                     "Draft (Other Squad)" ]
              ]
         _ ->
