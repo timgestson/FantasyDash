@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "postinstall": "bower install && elm-make ./elm/app.elm -o ./dist/app.js && grunt build"
+    "postinstall": "bower install && grunt build"
   },
   "license": "MIT"
 }

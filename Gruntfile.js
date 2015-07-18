@@ -20,7 +20,7 @@ module.exports = function(grunt){
         elm: {
             compile: {
                 files: {
-                    "./dist/elm.js": ["./elm/app.elm"]
+                    "./dist/elm.js": ["./elm/*.elm"]
                 }
             }
         },
@@ -37,6 +37,6 @@ module.exports = function(grunt){
     grunt.loadNpmTasks("grunt-elm")
     
     grunt.registerTask("default", ["watch"]);
-    grunt.registerTask("build", ["browserify"]);
+    grunt.registerTask("build", ["browserify", "elm"]);
 
 }
