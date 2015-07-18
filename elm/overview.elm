@@ -36,16 +36,17 @@ createData items position =
 
 chartData model = 
     let allitems = draftOrderSort model.players
-        names = List.map .name allitems
         start = if model.draftPosition < 30 then
                     0
                 else
                     model.draftPosition - 30
         items = List.take 60 (List.drop start allitems)
+        names = List.map .name allitems
         positions = ["QB","RB","WR","TE","K","Def"]
         labels =  
             (List.map fst (List.indexedMap (,) items))
             |> List.map ((+) 1)
+            |> List.map ((+) start)
             |> List.map toString
     in
         { command = "Render"
@@ -59,7 +60,7 @@ chartData model =
             , datasets = 
                 List.map (createData items) positions
             , extras = Just {
-                line = model.draftPosition
+                line = model.draftPosition - start
                 , names = names
                 }
             })

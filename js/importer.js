@@ -30,7 +30,7 @@ function importer(){
         let parsedPlayer =  {
             id: player.PlayerID.toString(),
             name: `${player.FirstName} ${player.LastName}`,
-            position: player.Pos,
+            position: player.Pos == "PK" ? "K" : player.Pos,
             byeWeek: player.Bye || null,
             projPoints: player.FantasyPts,
             status: "Available",
@@ -38,6 +38,8 @@ function importer(){
             favorited: false
         }
         parsedPlayer.adp = adpMap[parsedPlayer.name]
+        if(parsedPlayer.name == "Odell Beckham")
+            parsedPlayer.adp = adpMap["Odell Beckham Jr."]
         return parsedPlayer
     })
     .filter((player)=> 
