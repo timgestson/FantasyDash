@@ -37,6 +37,6 @@ module.exports = function(grunt){
     grunt.loadNpmTasks("grunt-elm")
     
     grunt.registerTask("default", ["watch"]);
-    grunt.registerTask("build", ["browserify", "elm"]);
+    grunt.registerTask("build", ["browserify"]);
 
 }
