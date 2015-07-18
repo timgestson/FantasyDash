@@ -3,15 +3,15 @@
 
 ###Features
 * All draftworthy players with projections and adps
-* Ability to Favorite, Sort, and Draft Players
+* Ability to favorite, sort, and draft players
 * Chart for starting roster
-* Chart for Value over replacement for available players
+* Chart for value over replacement for available players
 * Chart for value over next available for available players
 * Overview chart that status of the draft and projects future picks
 
 ![alt tag](./docs/screenshot.png)
 
-###Instalation
+###Installation
 ```
 npm install
 npm start
