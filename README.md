@@ -10,6 +10,10 @@
 
 ![alt tag](./docs/screenshot.png)
 
+###Instalation
+`npm install
+`npm start
+
 ###Not yet implemented
 * Keeping track of all teams not just yours
 * Ability to look forward to see which players will likely be available at your later picks
