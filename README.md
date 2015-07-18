@@ -11,8 +11,10 @@
 ![alt tag](./docs/screenshot.png)
 
 ###Instalation
-`npm install
-`npm start
+```
+npm install
+npm start
+```
 
 ###Not yet implemented
 * Keeping track of all teams not just yours
