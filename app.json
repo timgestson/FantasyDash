@@ -1,0 +1,6 @@
+{
+  "name": "Fantasy Draft Dashboard",
+  "description": "Dashboard for draft insights written in elm",
+  "repository": "https://github.com/timgestson/FantasyDash",
+  "keywords":["elm","fantasyfootball","es6"]
+}

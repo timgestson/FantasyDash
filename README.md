@@ -1,4 +1,5 @@
 ## Fantasy Football Draft Insights Dashboard
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 ###Features
 * All draftworthy players with projections and adps
