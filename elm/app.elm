@@ -3,6 +3,7 @@ module DraftDash where
 import Html exposing (..)
 import Html.Events exposing(..)
 import Html.Attributes exposing(..)
+import Task exposing (..)
 import Player exposing (..)
 import Signal exposing (..)
 import Sidebar exposing (..)
@@ -89,10 +90,19 @@ dashboard model =
 port getState : Maybe Model
 
 port renderChart : Signal (List ChartCommand)
-port renderChart = 
-    Signal.map dashboard model
+port renderChart = Signal.map dashboard render
+
+render = 
+    Signal.merge
+        (Signal.sampleOn startAppMailbox.signal model)
+        model
 
 port setState : Signal Model
 port setState = model
 
+startAppMailbox = Signal.mailbox ()
+
+port startApp : Signal (Task error ())
+port startApp = 
+    Signal.constant (Signal.send startAppMailbox.address ())
 
